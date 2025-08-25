@@ -7,8 +7,8 @@ After=network.target
 Type=simple
 User=service-manager
 Group=service-manager
-WorkingDirectory=/opt/service-manager/sample
-ExecStart=/opt/service-manager/sample/sample-service.py
+WorkingDirectory=/opt/service-manager/sample-service
+ExecStart=/opt/service-manager/sample-service/sample-service.py
 Restart=always
 RestartSec=3
 StandardOutput=journal
@@ -23,7 +23,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/service-manager/sample
+ReadWritePaths=/opt/service-manager/sample-service
 
 [Install]
 WantedBy=multi-user.target

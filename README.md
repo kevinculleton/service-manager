@@ -249,8 +249,9 @@ service-manager/
 │   │   └── style.css
 │   └── js/          # JavaScript
 │       └── script.js
-├── sample-service.py  # Example service for demonstration
-├── sample-service.service # Systemd service file for sample
+├── sample-service/     # Sample service and examples
+│   ├── sample-service.py
+│   └── sample-service.service
 ├── Makefile          # Convenient make commands
 └── README.md         # This file
 ```

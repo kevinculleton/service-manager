@@ -8,7 +8,7 @@ set -e
 # Configuration
 SSH_ALIAS="service-manager"
 SERVICE_NAME="sample-service"
-SERVICE_DIR="/opt/service-manager/sample"
+SERVICE_DIR="/opt/service-manager/sample-service"
 SERVICE_FILE="sample-service.service"
 
 echo "🚀 Deploying Sample Service to ${SERVER_USER}@${SERVER_HOST}..."
@@ -27,8 +27,8 @@ ssh -t ${SSH_ALIAS} "sudo mkdir -p ${SERVICE_DIR} && sudo chown service-manager:
 
 # Copy service files
 echo "📤 Deploying service files..."
-scp sample-service.py ${SSH_ALIAS}:${SERVICE_DIR}/
-scp ${SERVICE_FILE} ${SSH_ALIAS}:${SERVICE_DIR}/
+scp sample-service/sample-service.py ${SSH_ALIAS}:${SERVICE_DIR}/
+scp sample-service/${SERVICE_FILE} ${SSH_ALIAS}:${SERVICE_DIR}/
 
 # Set permissions
 echo "🔐 Setting file permissions..."
