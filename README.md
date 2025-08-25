@@ -14,9 +14,10 @@ A professional, lightweight web interface for managing systemd services with gra
 ## Screenshots
 
 The interface features:
-- A large red restart button that's impossible to miss
-- Real-time service status display
-- Clean, modern design with gradient background
+- Multi-service management dashboard with status cards
+- Action buttons (start/stop/restart) based on permissions
+- Real-time service status display with visual indicators
+- Clean, modern design with professional appearance
 - Responsive layout for all devices
 
 ## Prerequisites
@@ -45,7 +46,7 @@ make status
 ```bash
 # Clone or Download
 git clone <repository-url>
-cd pzserver-restart
+cd service-manager
 
 # Build and start the container
 docker-compose up -d
@@ -68,17 +69,17 @@ If you prefer not to use docker-compose:
 
 ```bash
 # Build the image
-docker build -t pzserver-restart .
+docker build -t service-manager .
 
 # Run the container
 docker run -d \
-  --name pzserver-restart \
+  --name service-manager \
   --network host \
   --cap-add SYS_ADMIN \
   -v /run/systemd/system:/run/systemd/system:ro \
   -v /var/run/systemd/system:/var/run/systemd/system:ro \
   -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
-  pzserver-restart
+  service-manager
 ```
 
 ## Usage
@@ -102,8 +103,27 @@ docker run -d \
 
 ## API Endpoints
 
-### GET /api/status
-Returns the current status of the pzserver service.
+### GET /api/services
+Returns all configured services with their current status and permissions.
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": {
+    "sample-service": {
+      "name": "sample-service",
+      "display_name": "Sample HTTP Service",
+      "description": "Simple HTTP server for demonstration",
+      "status": "running",
+      "permissions": "all"
+    }
+  }
+}
+```
+
+### GET /api/service/<service_name>/status
+Returns the current status of a specific service.
 
 **Response:**
 ```json
@@ -113,8 +133,8 @@ Returns the current status of the pzserver service.
 }
 ```
 
-### POST /api/restart
-Initiates a restart of the pzserver service.
+### POST /api/service/<service_name>/<action>
+Executes an action (start/stop/restart) on a specific service.
 
 **Response:**
 ```json
@@ -125,6 +145,24 @@ Initiates a restart of the pzserver service.
 ```
 
 ## Configuration
+
+### Service Configuration
+Services are configured in `config/services.yaml`:
+
+```yaml
+services:
+  sample-service:
+    display_name: "Sample HTTP Service"
+    description: "Simple HTTP server for demonstration"
+    permissions_required: "all"
+    status_check_allowed: true
+```
+
+### Permission Levels
+- **restart**: Can only restart the service
+- **start**: Can start, stop, and restart the service
+- **stop**: Can stop and restart the service
+- **all**: Full control over the service
 
 ### Environment Variables
 - `PYTHONUNBUFFERED=1`: Ensures Python output is not buffered
@@ -145,19 +183,19 @@ ports:
 ### Service Not Found
 If you get "Service not found" errors:
 
-1. Verify pzserver service exists:
+1. Verify the service exists in your system:
 ```bash
-systemctl list-units --type=service | grep pzserver
+systemctl list-units --type=service | grep <service-name>
 ```
 
-2. Check service name spelling in `app.py`
+2. Check service name spelling in `config/services.yaml`
 
 ### Permission Denied
 If restart operations fail:
 
 1. Ensure the container has proper capabilities:
 ```bash
-docker inspect pzserver-restart | grep -A 10 "CapAdd"
+docker inspect service-manager | grep -A 10 "CapAdd"
 ```
 
 2. Verify host systemd socket access:
@@ -179,7 +217,7 @@ netstat -tulpn | grep :5000
 ### Status Not Updating
 1. Check if the container can access systemd:
 ```bash
-docker exec pzserver-restart systemctl is-active pzserver
+docker exec service-manager systemctl is-active <service-name>
 ```
 
 2. Verify network mode is set to host in docker-compose.yml
@@ -228,11 +266,16 @@ python app.py
 
 ### Project Structure
 ```
-pzserver-restart/
+service-manager/
 ├── app.py              # Main Flask application
 ├── requirements.txt    # Python dependencies
-├── Dockerfile         # Container configuration
-├── docker-compose.yml # Deployment configuration
+├── config/            # Configuration files
+│   ├── services.yaml  # Service definitions and permissions
+│   └── deployment.env # Deployment configuration (template)
+├── scripts/           # Deployment and management scripts
+│   ├── deploy.sh      # Main deployment script
+│   ├── setup-server-user.sh # Server user setup
+│   └── service-discovery.sh # Service discovery automation
 ├── templates/         # HTML templates
 │   └── index.html    # Main page template
 ├── static/           # Static assets
@@ -240,6 +283,9 @@ pzserver-restart/
 │   │   └── style.css
 │   └── js/          # JavaScript
 │       └── script.js
+├── sample-service.py  # Example service for demonstration
+├── sample-service.service # Systemd service file for sample
+├── Makefile          # Convenient make commands
 └── README.md         # This file
 ```
 
@@ -271,5 +317,5 @@ For issues and questions:
 
 ---
 
-**Happy PZServer management! 🎮**
+**Happy Service Management! 🚀**
 
