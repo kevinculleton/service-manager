@@ -1,0 +1,25 @@
+# Service Manager Configuration
+# Defines which services can be managed and their permissions
+
+services:
+  pzserver:
+    display_name: "PZServer Game Server"
+    description: "Project Zomboid dedicated game server"
+    permissions_required: "restart"
+    status_check_allowed: true
+    
+  sample-service:
+    display_name: "Sample HTTP Service"
+    description: "Simple HTTP server for demonstration purposes"
+    permissions_required: "all"
+    status_check_allowed: true
+
+# Permission levels:
+# - "restart": Can only restart the service
+# - "start": Can start and restart the service  
+# - "stop": Can stop and restart the service
+# - "all": Can start, stop, and restart the service
+
+# status_check_allowed: true/false
+# Controls whether the Service Manager can check the status of this service
+

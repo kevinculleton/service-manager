@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Manager - Professional Service Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Service Manager</h1>
+                    <p>Professional System Service Management</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="refreshAllServices()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Status Overview -->
+        <div class="status-overview">
+            <h2>
+                <i class="fas fa-chart-line"></i>
+                System Overview
+            </h2>
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <div class="number" id="total-services">-</div>
+                    <div class="label">Total Services</div>
+                </div>
+                <div class="overview-item">
+                    <div class="number" id="active-services">-</div>
+                    <div class="label">Active Services</div>
+                </div>
+                <div class="overview-item">
+                    <div class="number" id="inactive-services">-</div>
+                    <div class="label">Inactive Services</div>
+                </div>
+                <div class="overview-item">
+                    <div class="number" id="error-services">-</div>
+                    <div class="label">Error Services</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="services-grid" id="services-grid">
+            <!-- Services will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <!-- Floating Refresh Button -->
+    <button class="refresh-btn" onclick="refreshAllServices()" title="Refresh All Services">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <!-- Loading Template -->
+    <template id="loading-template">
+        <div class="service-card loading">
+            <div class="service-header">
+                <div class="service-info">
+                    <h3>Loading...</h3>
+                    <p>Please wait while services are being loaded</p>
+                </div>
+                <div class="service-status status-error">Loading</div>
+            </div>
+            <div class="service-actions">
+                <button class="btn btn-outline" disabled>Loading...</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Service Card Template -->
+    <template id="service-template">
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-info">
+                    <h3 class="service-name"></h3>
+                    <p class="service-description"></p>
+                </div>
+                <div class="service-status"></div>
+            </div>
+            <div class="service-actions">
+                <!-- Action buttons will be dynamically added here -->
+            </div>
+        </div>
+    </template>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

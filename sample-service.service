@@ -1,0 +1,29 @@
+[Unit]
+Description=Sample HTTP Service
+Documentation=https://github.com/your-repo/sample-service
+After=network.target
+
+[Service]
+Type=simple
+User=service-manager
+Group=service-manager
+WorkingDirectory=/opt/service-manager/sample
+ExecStart=/opt/service-manager/sample/sample-service.py
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sample-service
+
+# Environment variables
+Environment=PYTHONUNBUFFERED=1
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/service-manager/sample
+
+[Install]
+WantedBy=multi-user.target
