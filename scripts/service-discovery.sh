@@ -47,7 +47,7 @@ echo "🚀 Running services that might be useful to manage:"
 echo ""
 
 # Filter for common services that are typically managed
-ssh $SERVER_HOST "systemctl list-units --type=service --state=running --no-pager" | grep "\.service" | awk '{print $1}' | sed 's/\.service$//' | grep -E "(nginx|apache|mysql|postgres|redis|docker|kube|pzserver|game|minecraft|valheim)" | head -20
+ssh $SERVER_HOST "systemctl list-units --type=service --state=running --no-pager" | grep "\.service" | awk '{print $1}' | sed 's/\.service$//' | grep -E "(nginx|apache|mysql|postgres|redis|docker|kube|game|minecraft|valheim)" | head -20
 
 echo ""
 

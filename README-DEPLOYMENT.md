@@ -143,10 +143,10 @@ Server-side setup script (run automatically):
 ### services.yaml
 ```yaml
 services:
-  pzserver:
-    display_name: "PZServer Game Server"
-    permissions_required: "restart"
-    description: "Project Zomboid dedicated game server"
+  sample-service:
+    display_name: "Sample HTTP Service"
+    permissions_required: "all"
+    description: "Simple HTTP server for demonstration"
   
   nginx:
     display_name: "Nginx Web Server"

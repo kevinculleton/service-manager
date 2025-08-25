@@ -1,14 +1,15 @@
-# PZServer Restart Web Interface
+# Service Manager
 
-A simple, lightweight web interface for restarting the pzserver systemd service with one click.
+A professional, lightweight web interface for managing systemd services with granular permissions and modern UI.
 
 ## Features
 
-- 🚀 **One-Click Restart**: Large, prominent red button for easy service restart
-- 📊 **Real-Time Status**: Live display of pzserver service status
-- 🎨 **Clean Interface**: Modern, responsive design with visual feedback
+- 🚀 **Multi-Service Management**: Manage multiple systemd services with granular permissions
+- 📊 **Real-Time Status**: Live display of all configured services
+- 🎨 **Professional Interface**: Modern, responsive design with enterprise-grade appearance
 - 🐳 **Docker Ready**: Easy deployment with Docker and docker-compose
 - 🔒 **Secure**: Non-root container with minimal privileges
+- 🔐 **Permission-Based Access**: Control who can start/stop/restart each service
 
 ## Screenshots
 
@@ -21,7 +22,7 @@ The interface features:
 ## Prerequisites
 
 - Docker and docker-compose installed
-- pzserver systemd service running on the host
+- Systemd services configured for management
 - Port 5000 available on the host
 
 ## Quick Start
@@ -82,13 +83,14 @@ docker run -d \
 
 ## Usage
 
-### Restart Service
-1. Click the large red "RESTART PZSERVER" button
-2. Wait for confirmation message
-3. Service status will automatically update
+### Manage Services
+1. View all configured services and their current status
+2. Use action buttons (start/stop/restart) based on your permissions
+3. Wait for confirmation message
+4. Service status will automatically update
 
 ### Check Status
-- Current service status is displayed at the top
+- Current status of all services is displayed
 - Status auto-refreshes every 30 seconds
 - Click "Refresh Status" for immediate update
 

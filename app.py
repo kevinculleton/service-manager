@@ -31,14 +31,8 @@ def load_services_config():
             return config.get('services', {})
     except Exception as e:
         print(f"Error loading services config: {e}")
-        # Fallback to default pzserver service
-        return {
-            'pzserver': {
-                'display_name': 'PZServer Game Server',
-                'permissions_required': 'restart',
-                'description': 'Project Zomboid dedicated game server'
-            }
-        }
+        # Fallback to empty services if config fails to load
+        return {}
 
 def get_service_status(service_name):
     """Get the status of a specific service"""
@@ -215,31 +209,7 @@ def service_action(service_name, action):
             'message': message
         }), 500
 
-# Legacy endpoints for backward compatibility
-@app.route('/api/status')
-def legacy_status():
-    """Legacy endpoint for pzserver status"""
-    status = get_service_status('pzserver')
-    return jsonify({
-        'status': 'success',
-        'data': status
-    })
 
-@app.route('/api/restart', methods=['POST'])
-def legacy_restart():
-    """Legacy endpoint for pzserver restart"""
-    success, message = execute_service_action('pzserver', 'restart')
-    
-    if success:
-        return jsonify({
-            'status': 'success',
-            'message': message
-        })
-    else:
-        return jsonify({
-            'status': 'error',
-            'message': message
-        }), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=config['web_port'], debug=config['debug'])

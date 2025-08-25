@@ -31,6 +31,7 @@ env.bak/
 venv.bak/
 
 # Configuration files
+config/deployment.env
 config/deployment.env.local
 *.env.local
 deployment.env.local
@@ -60,4 +61,7 @@ logs/
 # Temporary files
 *.tmp
 *.temp
+
+# Memory Bank
+.memory-bank/
 

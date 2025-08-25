@@ -2,12 +2,6 @@
 # Defines which services can be managed and their permissions
 
 services:
-  pzserver:
-    display_name: "PZServer Game Server"
-    description: "Project Zomboid dedicated game server"
-    permissions_required: "restart"
-    status_check_allowed: true
-    
   sample-service:
     display_name: "Sample HTTP Service"
     description: "Simple HTTP server for demonstration purposes"
