@@ -7,7 +7,7 @@ A professional, lightweight web interface for managing systemd services with gra
 - 🚀 **Multi-Service Management**: Manage multiple systemd services with granular permissions
 - 📊 **Real-Time Status**: Live display of all configured services
 - 🎨 **Professional Interface**: Modern, responsive design with enterprise-grade appearance
-- 🐳 **Docker Ready**: Easy deployment with Docker and docker-compose
+- 🚀 **SSH-Based Deployment**: Secure, automated deployment system
 - 🔒 **Secure**: Non-root container with minimal privileges
 - 🔐 **Permission-Based Access**: Control who can start/stop/restart each service
 
@@ -22,7 +22,7 @@ The interface features:
 
 ## Prerequisites
 
-- Docker and docker-compose installed
+- SSH access to your server
 - Systemd services configured for management
 - Port 5000 available on the host
 
@@ -41,46 +41,16 @@ make deploy
 make status
 ```
 
-### Option 2: Manual Docker Setup
 
-```bash
-# Clone or Download
-git clone <repository-url>
-cd service-manager
-
-# Build and start the container
-docker-compose up -d
-
-# Check logs
-docker-compose logs -f
-```
 
 ### Access the Interface
 
 Open your browser and navigate to:
 ```
-http://192.168.1.130:5000  # Automated deployment
-http://localhost:5000       # Local Docker
+http://YOUR_SERVER_IP:5000  # After deployment
 ```
 
-## Manual Docker Commands
 
-If you prefer not to use docker-compose:
-
-```bash
-# Build the image
-docker build -t service-manager .
-
-# Run the container
-docker run -d \
-  --name service-manager \
-  --network host \
-  --cap-add SYS_ADMIN \
-  -v /run/systemd/system:/run/systemd/system:ro \
-  -v /var/run/systemd/system:/var/run/systemd/system:ro \
-  -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
-  service-manager
-```
 
 ## Usage
 
@@ -183,13 +153,8 @@ cp config/deployment.env.example config/deployment.env
 ### Port Configuration
 The default port is 5000. To change this:
 
-1. Modify `docker-compose.yml`:
-```yaml
-ports:
-  - "YOUR_PORT:5000"
-```
-
-2. Update the `app.py` file if needed.
+1. Update the `app.py` file with your desired port
+2. Ensure the port is available on your server
 
 ## Troubleshooting
 
@@ -206,34 +171,22 @@ systemctl list-units --type=service | grep <service-name>
 ### Permission Denied
 If restart operations fail:
 
-1. Ensure the container has proper capabilities:
-```bash
-docker inspect service-manager | grep -A 10 "CapAdd"
-```
-
-2. Verify host systemd socket access:
+1. Verify host systemd socket access:
 ```bash
 ls -la /run/systemd/system/
 ```
 
-### Container Won't Start
-1. Check Docker logs:
-```bash
-docker-compose logs
-```
+2. Check sudo permissions for the service-manager user
 
-2. Verify port 5000 is available:
-```bash
-netstat -tulpn | grep :5000
-```
+
 
 ### Status Not Updating
-1. Check if the container can access systemd:
+1. Check if the service-manager can access systemd:
 ```bash
-docker exec service-manager systemctl is-active <service-name>
+ssh YOUR_USER@YOUR_SERVER "sudo systemctl is-active <service-name>"
 ```
 
-2. Verify network mode is set to host in docker-compose.yml
+2. Verify the service-manager service is running on the server
 
 ## Deployment
 
@@ -263,7 +216,7 @@ make help       # Show all commands
 
 ## Development
 
-### Local Development (without Docker)
+### Local Development
 
 1. Install Python dependencies:
 ```bash
@@ -325,7 +278,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 For issues and questions:
 1. Check the troubleshooting section above
-2. Review Docker and systemd logs
+2. Review systemd logs
 3. Open an issue in the repository
 
 ---
