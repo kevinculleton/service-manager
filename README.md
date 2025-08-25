@@ -6,19 +6,10 @@ A professional, lightweight web interface for managing systemd services with gra
 
 - 🚀 **Multi-Service Management**: Manage multiple systemd services with granular permissions
 - 📊 **Real-Time Status**: Live display of all configured services
-- 🎨 **Professional Interface**: Modern, responsive design with enterprise-grade appearance
 - 🚀 **SSH-Based Deployment**: Secure, automated deployment system
-- 🔒 **Secure**: Non-root container with minimal privileges
-- 🔐 **Permission-Based Access**: Control who can start/stop/restart each service
 
 ## Screenshots
-
-The interface features:
-- Multi-service management dashboard with status cards
-- Action buttons (start/stop/restart) based on permissions
-- Real-time service status display with visual indicators
-- Clean, modern design with professional appearance
-- Responsive layout for all devices
+TBD
 
 ## Prerequisites
 
@@ -255,34 +246,3 @@ service-manager/
 ├── Makefile          # Convenient make commands
 └── README.md         # This file
 ```
-
-## Security Considerations
-
-- Container runs as non-root user
-- Minimal required capabilities (SYS_ADMIN only)
-- No new privileges escalation
-- Host systemd access is read-only where possible
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section above
-2. Review systemd logs
-3. Open an issue in the repository
-
----
-
-**Happy Service Management! 🚀**
-
