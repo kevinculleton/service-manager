@@ -164,6 +164,19 @@ services:
 - **stop**: Can stop and restart the service
 - **all**: Full control over the service
 
+### Deployment Configuration
+The deployment configuration is managed through environment variables:
+
+1. **Copy the template**: Copy `config/deployment.env.example` to `config/deployment.env`
+2. **Customize settings**: Edit `config/deployment.env` with your server details
+3. **Keep private**: The `deployment.env` file is excluded from git for security
+
+```bash
+# Copy and customize the configuration
+cp config/deployment.env.example config/deployment.env
+# Edit deployment.env with your actual server details
+```
+
 ### Environment Variables
 - `PYTHONUNBUFFERED=1`: Ensures Python output is not buffered
 
@@ -271,7 +284,7 @@ service-manager/
 ├── requirements.txt    # Python dependencies
 ├── config/            # Configuration files
 │   ├── services.yaml  # Service definitions and permissions
-│   └── deployment.env # Deployment configuration (template)
+│   └── deployment.env.example # Deployment configuration template
 ├── scripts/           # Deployment and management scripts
 │   ├── deploy.sh      # Main deployment script
 │   ├── setup-server-user.sh # Server user setup

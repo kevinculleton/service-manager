@@ -32,7 +32,6 @@ venv.bak/
 
 # Configuration files
 config/deployment.env
-config/deployment.env.local
 *.env.local
 deployment.env.local
 
